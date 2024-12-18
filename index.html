@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #fef5e7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://source.unsplash.com/featured/?birthday');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6f61;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+        .cake-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .cake {
+            width: 150px;
+            height: 150px;
+            background-image: url('https://scontent.fkno3-1.fna.fbcdn.net/v/t39.30808-6/470207328_122199213320038382_2140473031875776872_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHseCF7Za3K3UuUp1MjUbqElWNJf-MAwpSVY0l_4wDClLGRNm8U5CCavdEMUOjK7KtqMjQFwUgluxj6qV6-EF3u&_nc_ohc=Q6mVatV0SH0Q7kNvgG_MRo7&_nc_oc=Adg0V_HbkGmbi0LxTL755d-D9N3A0nitwl1PDBE9ghbUDuRdD8IWqZqRFXJcy7jzwZ3DjZXcGlAXPTFtDr8zKJ7W&_nc_zt=23&_nc_ht=scontent.fkno3-1.fna&_nc_gid=ARMzI-yWZCUY1lEjmDYCu_b&oh=00_AYA-UdLABce-XIoRbbIDLsCTxFdQ47VxvuyO7uP8ZiJgTg&oe=6768FE05');
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: flicker 1s infinite alternate;
+        }
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        }
+        .game {
+            margin-top: 20px;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 1rem;
+            border: none;
+            background: linear-gradient(45deg, #ff6f61, #ffda77);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .surprise {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #photo {
+            display: none;
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
+        #surprise-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.4rem;
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #ff6f61, #ffda77);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fade-in 1s forwards;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 2.5rem;
+            padding: 40px;
+            border-radius: 20px;
+            animation: fade-in 1s forwards;
+            text-align: center;
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes rain {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        /* New styling for the "SEE YOU IN 2025!" text */
+        .see-you-message {
+            font-family: 'Verdana', sans-serif;
+            font-size: 2rem;
+            color: #ff6f61;
+            margin-top: 20px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6f61, #ffda77);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fade-in 1.5s ease-out;
+        }
+    </style>
+    <script>
+        function showSurprise() {
+            const message = document.getElementById('surprise-message');
+            const photo = document.getElementById('photo');
+
+            message.style.display = 'block';
+            photo.style.display = 'block';
+
+            let timeLeft = 10;
+            const countdown = document.createElement('div');
+            countdown.textContent = timeLeft;
+            countdown.style.fontSize = '2rem';
+            countdown.style.color = '#ff6f61';
+            photo.insertAdjacentElement('beforebegin', countdown);
+
+            const timer = setInterval(() => {
+                timeLeft -= 1;
+                countdown.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    countdown.remove();
+                    startCakeRain();
+                    showSeeYouMessage();
+                }
+            }, 1000);
+        }
+
+        function startCakeRain() {
+            for (let i = 0; i < 50; i++) {
+                const cake = document.createElement('div');
+                cake.textContent = '🎂';
+                cake.style.position = 'absolute';
+                cake.style.left = Math.random() * 100 + 'vw';
+                cake.style.top = Math.random() * -100 + 'px';
+                cake.style.fontSize = '2rem';
+                cake.style.animation = 'rain 3s linear ' + Math.random() * 2 + 's infinite';
+                document.body.appendChild(cake);
+            }
+        }
+
+        function showSeeYouMessage() {
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'see-you-message';
+            messageContainer.textContent = 'SEE YOU IN 2025!';
+            const photoContainer = document.getElementById('photo');
+            photoContainer.insertAdjacentElement('afterend', messageContainer);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Happy Birthday! 🎉</h1>
+        <p>Wishing you a day filled with love, laughter, and lots of cake!</p>
+        <div class="cake-container">
+            <div class="cake"></div>
+        </div>
+        <div class="game">
+            <button onclick="showSurprise()">Click me</button>
+        </div>
+        <div class="surprise">
+            <img id="photo" src="https://scontent.fkno3-1.fna.fbcdn.net/v/t1.6435-9/93702263_588890221721853_4221405089018937344_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeElEZ8vNHNmoxsXPXAptxyoFlwf4umisSUWXB_i6aKxJcJ8lk5pWwqKFxhvTWiLSpatvPE4EBjaWJL0LgoyeQtw&_nc_ohc=5gz7ivp2KkQQ7kNvgHbszuf&_nc_oc=AdjtDBU5W8zQwCz5PDqecyExDtn_b0cmKEuWjDkZMLk_9CSLk-JzAKzpRtUlU1RTNlU3EpwvownaEHrAcO9RFdkY&_nc_zt=23&_nc_ht=scontent.fkno3-1.fna&_nc_gid=A_ukoZ0z0LcGk3dk0WFuhMa&oh=00_AYB6cTlLoBAm-rjfvBz6VwbKxHl230tTPK9901wrpZrg5A&oe=678A7478" alt="Desna Uli Matanari">
+            <div id="surprise-message">😊</div>
+        </div>
+    </div>
+</body>
+</html>
